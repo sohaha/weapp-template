@@ -1,8 +1,12 @@
 //index.js
 //获取应用实例
 const app = getApp()
+const mixins = require("../../utils/mixins.js")
 
-Page({
+Page(Object.assign({}, mixins, {
+  shareData: {
+    title: "首页"
+  },
   data: {
     motto: "Hello World",
     userInfo: {},
@@ -11,10 +15,11 @@ Page({
   //事件处理函数
   bindViewTap() {
     wx.navigateTo({
-      url: "../logs/logs"
+      url: "../logs/logs?name=log"
     })
   },
   onLoad() {
+    console.log("当前页面URL:", this.getCurrentPageUrl())
     app.getUserInfo(0, () => {
       console.log("onLoad授权结果:", app.globalData.userInfo)
 
@@ -39,4 +44,4 @@ Page({
       }
     })
   }
-})
+}))
