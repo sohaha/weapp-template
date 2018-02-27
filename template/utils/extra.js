@@ -1,4 +1,3 @@
-/* wxa-extra v1.0.1 | (c) 2018-2018 seekwe | Released under the ISC License. | blog.73zls.com/project  */
 "use strict"
 var _extends =
     Object.assign ||
@@ -18,9 +17,9 @@ var _extends =
     var g = "function" == typeof wx[a]
     return new Promise(function(h, j) {
       if (g) {
-        var l
-        ;(l = wx)[a].apply(
-          l,
+        var m
+        ;(m = wx)[a].apply(
+          m,
           [_extends({}, b, { success: h, fail: j })].concat(d)
         )
       } else j({ errMsg: "API:" + a + "\u4E0D\u5B58\u5728\uFF0C\u8BF7\u5C1D\u8BD5\u5347\u7EA7\u5FAE\u4FE1", type: "version" })
@@ -72,11 +71,11 @@ var _extends =
             var k = j.code
             0 === b,
               authApi("getUserInfo", "scope.userInfo", b, c, d)
-                .then(function(l) {
-                  ;(l.code = k), f(l)
+                .then(function(m) {
+                  ;(m.code = k), f(m)
                 })
-                .catch(function(l) {
-                  ;(l.code = k), g(l)
+                .catch(function(m) {
+                  ;(m.code = k), g(m)
                 })
           },
           fail: function fail(j) {
@@ -110,19 +109,19 @@ var _extends =
       j = 4 < arguments.length && arguments[4] !== void 0 ? arguments[4] : null,
       k = arguments[5]
     f || (f = !0)
-    var l,
-      m,
-      n = new Promise(function(o, p) {
-        ;(m = function() {
+    var m,
+      n,
+      o = new Promise(function(p, q) {
+        ;(n = function() {
           openSetting(f)
             .then(function() {
-              q()
+              r()
             })
-            .catch(function(s) {
-              "version" === s.type
-                ? p(s)
+            .catch(function(t) {
+              "version" === t.type
+                ? q(t)
                 : -1 === g
-                  ? r(l)
+                  ? s(m)
                   : j
                     ? wx.showModal(
                         Object.assign(
@@ -133,7 +132,7 @@ var _extends =
                               "\u5BF9\u5E94\u6743\u9650\u6CA1\u6709\u5F00\u542F,\u90E8\u5206\u529F\u80FD\u53D7\u9650",
                             showCancel: !1,
                             complete: function complete() {
-                              p(l)
+                              q(m)
                             }
                           },
                           "string" == typeof j
@@ -141,7 +140,7 @@ var _extends =
                             : !0 === j ? {} : j
                         )
                       )
-                    : p(l)
+                    : q(m)
             })
         }),
           (h =
@@ -155,44 +154,51 @@ var _extends =
               },
               "string" == typeof h ? { content: h } : !0 === h ? {} : h,
               {
-                success: function success(s) {
-                  !0 !== s.cancel && m()
+                success: function success(t) {
+                  !0 !== t.cancel && n()
                 },
                 fail: function fail() {}
               }
             ))
-        var q = function success() {
+        var r = function success() {
             api
               .apply(void 0, [a, k].concat(c))
-              .then(function(s) {
-                o(s)
+              .then(function(t) {
+                p(t)
               })
-              .catch(function(s) {
-                p(s)
+              .catch(function(t) {
+                q(t)
               })
           },
-          r = function fail(s) {
-            l || (l = s)
-            s.type
-            h ? wx.showModal(h) : m()
+          s = function fail(t) {
+            m || (m = t)
+            t.type
+            h ? wx.showModal(h) : n()
           }
         api
           .apply(void 0, [a, k].concat(c))
-          .then(function(s) {
-            o(s)
+          .then(function(t) {
+            p(t)
           })
-          .catch(function(s) {
-            var t = s.type || "warn"
-            ;(s = _extends({ type: t }, s)),
-              "version" !== t && 0 !== g ? r(s) : p(s)
+          .catch(function(t) {
+            var u = t.type || "warn"
+            ;(t = _extends({ type: u }, t)),
+              "version" !== u && 0 !== g ? s(t) : q(t)
           })
       })
-    return n
+    return o
   },
-  run = function(a, b) {
+  runCount = function(a, b) {
     var c = 2 < arguments.length && arguments[2] !== void 0 && arguments[2]
     return function() {
       a--, (c ? 0 === a : 0 >= a) && b()
+    }
+  },
+  runInit = function() {
+    var a = []
+    return function(b, c) {
+      if ((a.push(b), c))
+        for (var g, d = 0, f = a.length; d < f; d++) (g = a.shift()), g && g(c)
     }
   }
 module.exports = {
@@ -200,5 +206,6 @@ module.exports = {
   authApi: authApi,
   login: login,
   getSetting: getSetting,
-  run: run
+  runCount: runCount,
+  runInit: runInit
 }
