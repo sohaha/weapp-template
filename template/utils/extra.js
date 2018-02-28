@@ -1,3 +1,8 @@
+/*!
+ * weapp-extra v2.0.2 (https://www.npmjs.com/package/weapp-extra)
+ * Copyright 2018 seekwe@gmail.com, Inc.
+ * Licensed under the Apache-2.0 license
+ */
 "use strict"
 var _extends =
     Object.assign ||
