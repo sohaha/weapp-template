@@ -3,7 +3,7 @@
 ```bash
 npm install -g zls-cli
  
-zls new wxa-template ProjectFolder
+zls new weapp-template ProjectFolder
  
 cd ProjectFolder
 ```
