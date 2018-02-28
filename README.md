@@ -1,4 +1,4 @@
-# wxa-template
+# weapp-template
 
 ```bash
 npm install -g zls-cli
